@@ -29,7 +29,7 @@ class Entity{
 }
 
 class AppDef extends Entity{
-    definitionAppdef//references an appdef that is used as definition for the contenttype editor
+    // defini tionAppdef//references an appdef that is used as definition for the contenttype editor
 
     public constructor(init?:Partial<AppDef>) {
         super(init)

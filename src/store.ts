@@ -52,4 +52,8 @@ class EntityStore{
     findAncestor():Entity{
         return null
     }
+
+    query(){
+        
+    }
 }

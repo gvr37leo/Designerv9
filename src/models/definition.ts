@@ -4,114 +4,132 @@
 //3 tree for data of app //instance of person
 
 //definition of appdef objdef attributes
-var entityStore = new EntityStore()
-var appdefdef = new AppDef({
-    name:'appdef',
-    type:appdef.id,
-    definitionAppdef:appdefdef
-
-})
-
-var appdef = new ObjDef({
-    name:'appdef',
-    type:objdef.id,
-})
-
-entityStore.inject(appdefdef,appdefdef)
-generateAttributes(appdefdef,entityStore)
+function generateSelfDef(){
+    var entityStore = new EntityStore()
+    var appdefdef = new AppDef({
+        name:'appdef',
+        type:appdef.id
+    })
+    entityStore.add(appdefdef)
 
 
-var objdef = new ObjDef({
-    name:'objdef',
-    type:objdef.id,
-})
-entityStore.inject(objdef,appdefdef)
-generateAttributes(objdef,entityStore)
+    var appdef = new ObjDef({
+        name:'appdef',
+        type:objdef.id,
+    })
 
-var attributedef = new ObjDef({
-    name:'attribute',
-    type:objdef.id,
-})
-entityStore.inject(attributedef,appdefdef)
-generateAttributes(attributedef,entityStore)
-
-var datatypedef = new ObjDef({
-    name:'datatype',
-    type:objdef.id
-})
+    entityStore.inject(appdefdef,appdefdef)
+    generateAttributes(appdefdef,entityStore)
 
 
-var datatypestring = entityStore.inject(new DataType({
-    name:'string',
-}),appdefdef)
+    var objdef = new ObjDef({
+        name:'objdef',
+        type:objdef.id,
+    })
+    entityStore.inject(objdef,appdefdef)
+    generateAttributes(objdef,entityStore)
 
-var datatypedate = entityStore.inject(new DataType({
-    name:'date',
-}),appdefdef)
+    var attributedef = new ObjDef({
+        name:'attribute',
+        type:objdef.id,
+    })
+    entityStore.inject(attributedef,appdefdef)
+    generateAttributes(attributedef,entityStore)
 
-var datatyperange = entityStore.inject(new DataType({
-    name:'range',
-}),appdefdef)
+    var datatypedef = new ObjDef({
+        name:'datatype',
+        type:objdef.id
+    })
 
-var datatypenumber = entityStore.inject(new DataType({
-    name:'number',
-}),appdefdef)
 
-var datatypepointer = entityStore.inject(new DataType({
-    name:'pointer',
-}),appdefdef)
+    var datatypestring = entityStore.inject(new DataType({
+        name:'string',
+    }),appdefdef)
+    generateAttributes(datatypestring,entityStore)
 
-var datatypeid = entityStore.inject(new DataType({
-    name:'id',
-}),appdefdef)
+    var datatypedate = entityStore.inject(new DataType({
+        name:'date',
+    }),appdefdef)
+    generateAttributes(datatypedate,entityStore)
 
-var datatypebool = entityStore.inject(new DataType({
-    name:'bool',
-}),appdefdef)
+    var datatyperange = entityStore.inject(new DataType({
+        name:'range',
+    }),appdefdef)
+    generateAttributes(datatyperange,entityStore)
+    //min,max,step
 
-function generateAttributes(parent, store:EntityStore){
-    store.inject(new Attribute({
+
+    var datatypenumber = entityStore.inject(new DataType({
+        name:'number',
+    }),appdefdef)
+    generateAttributes(datatypenumber,entityStore)
+    //min max
+
+    var datatypepointer = entityStore.inject(new DataType({
+        name:'pointer',
+    }),appdefdef)
+    generateAttributes(datatypepointer,entityStore)
+    //allowwed types/objdefs
+
+    var datatypeid = entityStore.inject(new DataType({
         name:'id',
-        type:attributedef.id,
-        datatype:DataType.id,
-    }),parent)
+    }),appdefdef)
+    generateAttributes(datatypeid,entityStore)
+
+    var datatypebool = entityStore.inject(new DataType({
+        name:'bool',
+    }),appdefdef)
+    generateAttributes(datatypebool,entityStore)
+
+    function generateAttributes(parent, store:EntityStore){
+        store.inject(new Attribute({
+            name:'id',
+            type:attributedef.id,
+            datatype:datatypeid.id,
+        }),parent)
+        
+        store.inject(new Attribute({
+            name:'parent',
+            type:attributedef.id,
+            datatype:datatypepointer.id,//references any
+        }), parent)
     
-    store.inject(new Attribute({
-        name:'parent',
-        type:attributedef.id,
-        datatype:DataType.pointer,
-    }), parent)
+        store.inject(new Attribute({
+            name:'name',
+            type:attributedef.id,
+            datatype:datatypestring.id,
+        }), parent)
+    
+        store.inject(new Attribute({
+            name:'type',
+            type:attributedef.id,
+            datatype:datatypepointer.id,//references datatype
+        }), parent)
+    
+        store.inject(new Attribute({
+            name:'status',
+            type:attributedef.id,
+            datatype:datatypestring.id,
+        }), parent)
+    
+        store.inject(new Attribute({
+            name:'createdAt',
+            type:attributedef.id,
+            datatype:datatypedate.id,
+        }), parent)
+    
+        store.inject(new Attribute({
+            name:'updatedAt',
+            type:attributedef.id,
+            datatype:datatypedate.id,
+        }), parent)
+    }
 
-    store.inject(new Attribute({
-        name:'name',
-        type:attributedef.id,
-        datatype:DataType.string,
-    }), parent)
-
-    store.inject(new Attribute({
-        name:'type',
-        type:attributedef.id,
-        datatype:DataType.pointer,
-    }), parent)
-
-    store.inject(new Attribute({
-        name:'status',
-        type:attributedef.id,
-        datatype:DataType.string,
-    }), parent)
-
-    store.inject(new Attribute({
-        name:'createdAt',
-        type:attributedef.id,
-        datatype:DataType.date,
-    }), parent)
-
-    store.inject(new Attribute({
-        name:'updatedAt',
-        type:attributedef.id,
-        datatype:DataType.date,
-    }), parent)
+    return entityStore
 }
+
+
+
 
 
 function getEntityId(e:Entity){

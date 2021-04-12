@@ -39,4 +39,7 @@
 
 //make it so the editor can edit both the app and the definition
 
-var designer = new Designer()
+//upsert hardcoded entity tree to the database,work on that instead of local data
+var store = generateSelfDef()
+
+var designer = new Designer(store,null)

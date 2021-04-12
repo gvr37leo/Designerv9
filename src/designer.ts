@@ -1,13 +1,11 @@
 class Designer{
     router: Router;
-    store: EntityStore;
     
-    constructor(){
+    constructor(public store:EntityStore,selfAppDefId:number){
         this.router = new Router()
     }
 
-    init(db:EntityStore){
-        this.store = db
+    init(){
 
         this.router.listen(/entity\/(?<id>.*)/, (match:any) => {
             var ent = this.store.get(match.groups.id)
