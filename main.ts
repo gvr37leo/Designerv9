@@ -1,6 +1,5 @@
 /// <reference path="libs/vector/vector.ts" />
 /// <reference path="libs/utils/rng.ts" />
-/// <reference path="libs/utils/store.ts" />
 /// <reference path="libs/utils/table.ts" />
 /// <reference path="libs/utils/utils.ts" />
 /// <reference path="libs/utils/stopwatch.ts" />
@@ -9,6 +8,24 @@
 /// <reference path="libs/rect/rect.ts" />
 /// <reference path="libs/event/eventqueue.ts" />
 /// <reference path="libs/event/eventsystem.ts" />
+/// <reference path="src/store.ts" />
+/// <reference path="src/models/models.ts" />
+/// <reference path="src/models/definition.ts" />
+/// <reference path="src/designer.ts" />
+/// <reference path="src/router.ts" />
+/// <reference path="src/views/detailview.tsx" />
+/// <reference path="src/views/listview.tsx" />
+/// <reference path="src/views/treeview.tsx" />
+/// <reference path="src/widgets/widget.tsx" />
+/// <reference path="src/widgets/date.tsx" />
+/// <reference path="src/widgets/id.tsx" />
+/// <reference path="src/widgets/number.tsx" />
+/// <reference path="src/widgets/pointer.tsx" />
+/// <reference path="src/widgets/range.tsx" />
+/// <reference path="src/widgets/string.tsx" />
+
+
+
 
 
 //create a definition for the app
@@ -21,3 +38,5 @@
 //3 tree for data of app //instance of person
 
 //make it so the editor can edit both the app and the definition
+
+var designer = new Designer()
