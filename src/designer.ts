@@ -9,6 +9,7 @@ class Designer{
 
         this.router.listen(/entity\/(?<id>.*)/, (match:any) => {
             var ent = this.store.get(match.groups.id)
+            var dtview = new DetailView(ent)
             //render detail view
         })
 
@@ -17,5 +18,6 @@ class Designer{
             //render listview
         })
 
+        this.router.trigger(window.location.pathname)
     }
 }
